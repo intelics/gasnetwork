@@ -55,7 +55,7 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(q, 100)
 
     def test_calculate_decline_flow(self):
-        # Errors considered: t_plat < 0, t_peak < 0, a<0, b>1, b<0, math.pow((1 + (self.b * self.a * (self.t - self.t_peak - self.t_plat))) , (1/self.b)) == 0, (t - t_peak - t_plat) < 0
+        # Errors considered: t_plat < 0, t_peak < 0, a<0, b>1, b<0, (t - t_peak - t_plat) < 0
         type_curve = SyntheticTypeCurve(0, 100, 5, 6, 0, 1, 1)
 
         # q_peak = 100, b = 1, a = 1, t = 20, t_peak = 5, t_plat = 6, expect decline flow to return 10

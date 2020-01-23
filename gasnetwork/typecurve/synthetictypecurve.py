@@ -73,15 +73,12 @@ class SyntheticTypeCurve ():
         return (self.q_peak)
     
     def calculate_decline_flow(self):
-        try:
         if b != 0:
             # Equation 7
             return self.q_peak / math.pow((1 + (self.b * self.a * (self.t - self.t_peak - self.t_plat))) , (1/self.b))
         else:
             # Equation 8
             return self.q_peak * math.exp(-1 * (self.a) * (self.t - self.t_peak - self.t_plat))    
-        except Exception as err:
-            return 0
             
     def calculate_synthetic_type_curve(self):
         # Equation 9
