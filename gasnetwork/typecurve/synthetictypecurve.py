@@ -1,7 +1,6 @@
 import math
 
 class SyntheticTypeCurve ():
-    
 
     """
         Implementing synth as per "Developing synthetic reservoir type curve model for use in evaluating surface facility and gathering pipe network designs" 
@@ -20,23 +19,19 @@ class SyntheticTypeCurve ():
 
         # Interpolation degree between linear and sinusoidal ramp to peak (k)
         self.k = k
-        if k>1:
-            k=1
+        if self.k>1:
+            self.k=1
         else:
-            if k<0:
-                k=0
-            else:
-                k=k
+            if self.k<0:
+                self.k=0
 
         # Flow decline exponent (b)
         self.b = b
-        if b>1:
-            b=1
+        if self.b>1:
+            self.b=1
         else:
-            if b<0:
-                b=0
-            else:
-                b=b
+            if self.b<0:
+                self.b=0
 
         # Flow decline constant (a) - a=ln(q_zero/q)/t
         self.a = max(a, 0) 
@@ -48,7 +43,7 @@ class SyntheticTypeCurve ():
     def calculate_ramp_to_peak_flow(self):
         # Equation 2
         # returns the q_flow at time self.f
-        return (self.calculate_linear_ramp_slope * self.t) + self.q_zero 
+        return (self.calculate_linear_ramp_slope() * self.t) + self.q_zero 
 
     def calculate_linear_ramp_slope(self):
         # Equation 3
@@ -60,26 +55,26 @@ class SyntheticTypeCurve ():
     def calculate_sine_ramp_flow(self):
         # Equation 4
         try:
-        return ((self.q_peak / 2) * math.sin((math.pi / self.t_peak) * self.t - (math.pi / 2))) + (self.q_peak / 2)
+            return (self.q_peak / 2) * math.sin((math.pi / self.t_peak) * self.t - (math.pi / 2)) + (self.q_peak / 2)
         except Exception as err:
             return 0
 
     def calculate_ramp_flow(self):
         # Equation 5
-        return (self.k * self.calculate_sine_ramp_flow) + ((1 - self.k) * self.calculate_ramp_to_peak_flow) 
+        return (self.k * self.calculate_sine_ramp_flow()) + ((1 - self.k) * self.calculate_ramp_to_peak_flow()) 
     
-    def calculate_peak_flow_plateau(self):
+    def calculate_peak_flow_plateau(self): 
         # Equation 6
         return (self.q_peak)
     
     def calculate_decline_flow(self):
-        if b != 0:
+        if self.b == 0:
+            # Equation 8
+            return self.q_peak * math.exp((-1 * (self.a)) * (self.t - self.t_peak - self.t_plat))
+        else:
             # Equation 7
             return self.q_peak / math.pow((1 + (self.b * self.a * (self.t - self.t_peak - self.t_plat))) , (1/self.b))
-        else:
-            # Equation 8
-            return self.q_peak * math.exp(-1 * (self.a) * (self.t - self.t_peak - self.t_plat))    
-            
+                          
     def calculate_synthetic_type_curve(self):
         # Equation 9
         if self.t == 0:
