@@ -38,7 +38,7 @@ class SyntheticTypeCurve ():
             else:
                 b=b
 
-        # Flow decline constant (a) --> a=ln(q_zero/q)/t
+        # Flow decline constant (a) - a=ln(q_zero/q)/t
         self.a = max(a, 0) 
         
 
