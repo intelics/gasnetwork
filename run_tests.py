@@ -33,12 +33,14 @@ print (qs)  # in Sm3/s
 # to convert qs to MMSCFD
 #qs = [engunits.convert_value(type_curve.calculate_synthetic_type_curve)]
 fig = plt.plot(ts, qs, 'b')
-# with open('ref_curve.py', 'r') as myfile:
-#     data=myfile.read()
-# ref_ts = [i['ts'] for i in data]
-# ref_qs = [i['qs'] for i in data]
-# fig = plt.plot(ref_ts, ref_qs, 'r')
-# ref_series = json.load(open('ref_curve.py'), 'r')
+
+ref_series = json.load(open('ref_curve.py'))
+qs=ref_series["qs"]
+ts=ref_series["ts"]
+print(ts)
+print(qs)
+plt.plot(ts, qs, 'r')
+
 plt.show()
 
 # class Tester ():
