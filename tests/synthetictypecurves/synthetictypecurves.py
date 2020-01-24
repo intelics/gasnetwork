@@ -32,7 +32,7 @@ class TestMethods(unittest.TestCase):
         # q_peak = 100, t_peak = 5, t=1, expect sine_ramp_flow to return 9.54915028125263
         type_curve.t = 1
         q = type_curve.calculate_sine_ramp_flow()
-        self.assertEqual(q,9.54915028125263)
+        self.assertEqual(q, 9.54915028125263)
 
     def test_calculate_ramp_flow(self):
         # Errors considered: k>1, k<0
@@ -72,6 +72,15 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(q, 0.05602796437537268)
 
 
+    def test_calculate_synthetic_type_curve(self):
+        type_curve = SyntheticTypeCurve(32, 100, 5, 6, 0.1, 1, 1)
 
+        type_curve.t = 3
+        q=type_curve.calculate_synthetic_type_curve()
+        self.assertEqual(q, 72.06508497187474)
+
+        type_curve.t = 7
+        q=type_curve.calculate_synthetic_type_curve()
+        self.assertEqual(q, 100)
 
 

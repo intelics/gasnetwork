@@ -81,14 +81,14 @@ class SyntheticTypeCurve ():
             return self.q_zero
         else:
             if self.t > 0 and self.t <= self.t_peak:
-                return self.calculate_ramp_flow()
+                return self.calculate_ramp_flow()  
             else:
                 if self.t > self.t_peak and self.t <= (self.t_peak + self.t_plat):
-                    return self.calculate_peak_flow_plateau()
+                    return self.calculate_peak_flow_plateau()    
                 else:
                     if self.t > (self.t_peak + self.t_plat):
                         return calculate_decline_flow()
-
+                             
     def get_flow(self, interval):
         pass
 
