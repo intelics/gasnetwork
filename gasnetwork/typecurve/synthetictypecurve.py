@@ -37,8 +37,15 @@ class SyntheticTypeCurve ():
         self.a = max(a, 0) 
         
 
-    def build_curve(self):
-        pass
+    def build_curve(self, ts):
+        # return a list of flows from a list of ts
+        qs = []
+        for t in ts:
+            self.t = t
+            qs.append(self.calculate_synthetic_type_curve())
+        return qs
+
+
 
     def calculate_ramp_to_peak_flow(self):
         # Equation 2
@@ -87,7 +94,7 @@ class SyntheticTypeCurve ():
                     return self.calculate_peak_flow_plateau()    
                 else:
                     if self.t > (self.t_peak + self.t_plat):
-                        return calculate_decline_flow()
+                        return self.calculate_decline_flow()
                              
     def get_flow(self, interval):
         pass
