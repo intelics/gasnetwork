@@ -1,0 +1,43 @@
+from gasnetwork.typecurve.synthetictypecurve import SyntheticTypeCurve
+from gasnetwork.utils import engunits
+import matplotlib.pyplot as plt
+import numpy as np
+
+q_zero = 0 # MMSCFD
+q_zero = engunits.convert_value('svf', q_zero, 'MMSCFD')
+negative = False 
+q_peak = 10 # MMSCFD
+q_peak = engunits.convert_value('svf', q_peak, 'MMSCFD')
+
+type_curve = SyntheticTypeCurve(21, q_zero, q_peak, 5, 6, 0, 1, 1)
+ts = list(range(type_curve.months)) 
+# ps = type_curve.build_q_c()
+# ds = [0] * len(ps)
+# qs = type_curve.find_p()
+# ig = type_curve.calculate_gas_reservoir()
+# for i in range(len(ps)):    
+#     ds[i] = engunits.convert_value('svf', ps[i], 'MMSCFD')
+# print (ps) #should increase
+# print (ds) 
+# print (qs)
+# print (ig)
+
+
+# #ps = type_curve.build_q_b()
+# print (type_curve.calculate_gas_flow_cum())
+# # print (type_curve.get_gas_flow_cum_max())
+# ps = type_curve.build_q_c()
+# print (ps)
+# qs = type_curve.find_p()
+# print (qs)
+
+
+# fig1 = plt.plot(ps, qs)
+# plt.xlabel('Flow[MMSCFD]')
+# plt.ylabel('Pressure[kPag]')
+# plt.title('Inflow Performance Curve over Time for n=' + str(type_curve.n))
+# plt.show()
+
+
+print(type_curve.calculate_gas_flow_cum())
+print(type_curve.get_gas_flow_cum_max())
